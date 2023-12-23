@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADAS System</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <a href="/"><li>Home</li></a>
+        <a href="#"><li>Parking</li></a>
+        <a href="#"><li>Drowsiness Detection</li></a>
+        <a href="#"><li>Music</li></a>
+        <a href="#"><li>Apps</li></a>
+        <a href="#"><li>Settings</li></a>
+      </ul>
+      <h1>Advanced Driver Assistance System</h1>
+    </nav>
+    <main>
+      <section class="drowsiness-detection">
+        <h2>Drowsiness Detection</h2>
+        <div id="video-container">
+          <img
+            class="video-feed"
+            id="video_feed"
+            src="{{ url_for('video_feed') }}"
+            style="border: 1px solid #000"
+          />
+          <div id="drowsiness-score">
+            Drowsiness Score: <span id="score">0</span>
+          </div>
+        </div>
+        <!-- <div class="driver-status">
+          <p>Driver Status: <span id="flag">Alert</span></p>
+        </div> -->
+        <div id="driver-status">
+          Driver Status: <span id="status">Normal</span>
+        </div>
+        <!-- <div class="detection-info">
+          <p>Drowsiness Detection Algorithm Info</p>
+        </div>
+        <div class="alerts">
+          <p>Alerts: <span id="alerts">None</span></p>
+        </div> -->
+        <button class="emergency-call">Emergency Call</button>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; Drowsiness Detection - Minor Project</p>
+    </footer>
+  </body>
+  <script>
+    function updateDriverStatus() {
+      fetch('/get_score')  // Send GET request to '/get_score' endpoint
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('score').innerText = data.score;
+          if (data.score > 5) {
+            document.getElementById('status').innerText = 'Drowsy';
+          } else {
+            document.getElementById('status').innerText = 'Normal';
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Update driver status every 2 seconds (2000 milliseconds)
+    setInterval(updateDriverStatus, 250);
+
+    // Call updateDriverStatus initially to get the initial values
+    updateDriverStatus();
+  </script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</html>

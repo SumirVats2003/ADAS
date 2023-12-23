@@ -1,0 +1,139 @@
+/* Reset some default styles to ensure consistent rendering */
+body,
+h1,
+h2,
+ul,
+li,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Basic styling for the entire page */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  overflow: hidden;
+  color: white;
+  padding: 0 1rem;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+nav ul li {
+  padding: 1.3rem;
+}
+
+nav ul a li:hover {
+  background-color: white;
+  color: #333;
+}
+
+nav ul a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+main {
+  padding: 20px;
+}
+
+/* Styling for the Drowsiness Detection section */
+.drowsiness-detection {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.drowsiness-detection h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.video-feed {
+  /* border: 1px solid #ccc; */
+  /* border-radius: 5px; */
+  padding: 10px;
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.driver-status {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.detection-info {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.alerts {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.settings {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+button.emergency-call {
+  background-color: red;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+button.emergency-call:hover {
+  background-color: #ff6363;
+}
+
+#video-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#drowsiness-score {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 18px;
+  color: red;
+}
+
+.red-border {
+  border: 10px solid red;
+}
