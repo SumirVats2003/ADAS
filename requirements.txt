@@ -1,8 +1,8 @@
 pygame
 streamlit
-keras==2.13.1
 opencv-python
 numpy
 flask
 matplotlib
-tensorflow==2.13.0
+tensorflow==2.16.1
+keras==2.16.0
