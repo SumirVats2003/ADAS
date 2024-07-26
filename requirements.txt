@@ -1,0 +1,7 @@
+pygame
+streamlit
+keras
+opencv-python
+numpy
+flask
+matplotlib
