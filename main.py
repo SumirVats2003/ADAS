@@ -1,37 +1,53 @@
-from flask import Flask, render_template, Response, jsonify
+import av
 import cv2
+import os
+from keras.models import load_model
 import numpy as np
 from pygame import mixer
-from drowsiness_detection import perform_drowsiness_detection
-
-app = Flask(__name__)
-
-flag = True
-score1 = 0
-
-@app.route('/')
-def index():
-    return render_template('index.html', score=score1)
-
-@app.route('/get_score')
-def get_score():
-    # Read the score from the temporary file
-    with open('score_temp.txt', 'r') as file:
-        score = int(file.read())
-    
-    # Determine the driver status based on the score
-
-    if score == -1:
-        score = 0
-    driver_status = "Drowsy" if score > 5 else "Normal"
-
-    return jsonify({'score': score, 'driver_status': driver_status})
+import time
+import streamlit as st
+from streamlit_webrtc import webrtc_streamer, RTCConfiguration
 
 
+mixer.init()
+sound = mixer.Sound('untitled.mp3')
 
-@app.route('/video_feed')
-def video_feed():
-    return Response(perform_drowsiness_detection(), mimetype='multipart/x-mixed-replace; boundary=frame')
+face = cv2.CascadeClassifier(
+    'haarCascadeFiles/haarcascade_frontalface_alt.xml')
+leye = cv2.CascadeClassifier(
+    'haarCascadeFiles/haarcascade_lefteye_2splits.xml')
+reye = cv2.CascadeClassifier(
+    'haarCascadeFiles/haarcascade_righteye_2splits.xml')
+eye_cascade = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_eye.xml')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+lbl = ['Close', 'Open']
+
+model = load_model('models/cnncat2.h5')
+path = os.getcwd()
+font = cv2.FONT_HERSHEY_COMPLEX_SMALL
+count = 0
+score = 0
+thicc = 2
+rpred = [99]
+lpred = [99]
+classes_a = [99]
+classes_b = [99]
+
+
+class VideoProcessor:
+    def recv(self, frame):
+        frm = frame.to_ndarray(format="bgr24")
+        height, width = frm.shape[:2]
+
+        # Rest of your existing code for processing the video frame...
+
+        return av.VideoFrame.from_ndarray(frm, format='bgr24')
+
+
+webrtc_streamer(
+    key="example",
+    video_processor_factory=VideoProcessor,
+    rtc_configuration=RTCConfiguration(
+        {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+    ),
+)

@@ -4,7 +4,6 @@ from keras.models import load_model
 import numpy as np
 from pygame import mixer
 import time
-import threading
 
 def perform_drowsiness_detection():
     with open('score_temp.txt', 'w') as file:
@@ -144,7 +143,3 @@ def perform_drowsiness_detection():
             b'Content-Type: image/jpeg\r\n\r\n' + frame_data + b'\r\n'
             b'Score: ' + str(score).encode() + b'\r\n'
         )
-
-
-
-
