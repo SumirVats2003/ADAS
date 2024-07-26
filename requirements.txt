@@ -1,6 +1,6 @@
 pygame
 streamlit
-keras
+keras=2.13.1
 opencv-python
 numpy
 flask
